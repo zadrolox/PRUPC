@@ -40,7 +40,7 @@ $data = $produ->read();
         <div class="fundoPrincipal">
             <div class="text">
                 <h2>Pelúcia & Ração
-                    <?php echo $_SESSION['username']; ?> <br><span>PetShop</span>
+                    <br><span>PetShop</span>
                 </h2>
                 <p>Olá! Somos Pelúcias & Ração. Nascemos da alegria e do prazer que é cuidar de cães e gatos!
                     Todos os pets que recebemos são tratados assim: como se fossem nossos próprios filhos.</p>
