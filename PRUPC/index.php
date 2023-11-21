@@ -2,20 +2,17 @@
 
 include_once './config/config.php';
 include_once './classes/produ.php';
-session_start();
 
 
 $produ = new Produ($conn);
 $data = $produ->read();
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
-}
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="media.css">
+<script src="script.js" defer></script>
 
 <head>
     <meta charset="UTF-8">
@@ -33,7 +30,7 @@ if (!isset($_SESSION['username'])) {
                     <li><a href="#home">Home</a></li>
                     <li><a href="./login.php">Produtos</a></li>
                     <li><a href="./login.php">Banho&Tosa</a></li>
-                    <li><a class="btn" href="./login.php">Login</a></li>
+                    <li><a class="btn" href="./login.php">login</a></li>
                 </ul>
             </nav>
         </header>
@@ -42,7 +39,9 @@ if (!isset($_SESSION['username'])) {
     <section class="content">
         <div class="fundoPrincipal">
             <div class="text">
-                <h2>Pelúcia & Ração <br><span>PetShop</span></h2>
+                <h2>Pelúcia & Ração
+                    <?php echo $_SESSION['username']; ?> <br><span>PetShop</span>
+                </h2>
                 <p>Olá! Somos Pelúcias & Ração. Nascemos da alegria e do prazer que é cuidar de cães e gatos!
                     Todos os pets que recebemos são tratados assim: como se fossem nossos próprios filhos.</p>
             </div>
@@ -88,45 +87,58 @@ if (!isset($_SESSION['username'])) {
 
     <section class="carousel-produtos">
         <?php
+        /*
+            while ($row = $data->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                    <tr>
+                        <td class="tabNome"><?php echo $row['nome']; ?></td>
+                        <td class="tabIdade"><?php echo $row['idade']; ?></td>
+                        <td class="tabAcao"> <a href="edit.php?id=<?php echo $row['id']; ?>">Editar</a> <a href="delete.php?id=<?php echo $row['id']; ?>">Excluir</a> </td>
+                    </tr>
+                <?php } ?>
+        */
+
+
+
+
+
         while ($row = $data->fetch(PDO::FETCH_ASSOC)) { ?>
             <i class="fa-solid fa-angle-left">
-                < </i>
-
-                    <div class="boxProduto">
-                        <div class="categoriaProdutos">
-                            <div class="badge">
-                                <h4 style="font-weight: bolder;">Hot</h4>
-                            </div>
-
-                            <a href="categoriaProdutos.php">
-                                <div class="tumbnail_imagem">
-                                    <img src="<?php echo $row['imagem']; ?>" alt="" />
-                                </div>
-                                <section>
-                                    <header class="tituloProdtuo">
-                                        <h2>
-                                            <?php echo $row['nome']; ?>
-                                        </h2>
-                                    </header>
-                                </section>
-                                <section class="preco">
-                                    <p>
-                                        <?php echo $row['preco']; ?>
-                                    </p>
-                                </section>
-
-                            </a>
+            </i>
+            <a href="./login.php">
+                <div class="boxProduto">
+                    <div class="categoriaProdutos">
+                        <div class="badge">
+                            <h4 style="font-weight: bolder;">Hot</h4>
                         </div>
+                        <div class="tumbnail_imagem">
+                            <img src="<?php echo $row['imagem']; ?>" alt="" />
+                        </div>
+                        <section>
+                            <header class="tituloProdtuo">
+                                <h2>
+                                    <?php echo $row['nome']; ?>
+                                </h2>
+                            </header>
+                        </section>
+                        <section class="preco">
+                            <p>
+                                <?php echo $row['preco']; ?>
+                            </p>
+                        </section>
 
-                        <button class="btn" style="padding: 25px 111px;margin-top: 10px;">
-                            <a style="color: rgb(48, 25, 107);" href="./login.php">Comprar</a>
-                        </button>
+
                     </div>
+            </a>
+            <button class="btn" style="padding: 25px 111px;margin-top: 10px;">
+                <a style="color: rgb(48, 25, 107);" href="./login.php">Comprar</a>
+            </button>
+            </div>
 
-                    </div>
-                <?php } ?>
+            </div>
+        <?php } ?>
 
-                <i class="fa-solid fa-angle-right"> > </i>
+        <i class="fa-solid fa-angle-right"> > </i>
     </section>
 
 </body>

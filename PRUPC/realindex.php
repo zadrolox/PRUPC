@@ -35,8 +35,8 @@ if (!isset($_SESSION['username'])) {
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="./login.php">Produtos</a></li>
-                    <li><a href="./login.php">Banho&Tosa</a></li>
+                    <li><a href="#produtos">Produtos</a></li>
+                    <li><a href="#banhoetosa">Banho&Tosa</a></li>
                     <li><a class="btn" href="./logout.php">logout</a></li>
                 </ul>
             </nav>
