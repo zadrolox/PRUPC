@@ -1,6 +1,6 @@
 <?php
 
-class Produ {
+class Agenda {
     private $conn;
 
 
@@ -8,9 +8,17 @@ class Produ {
         $this->conn = $conn;
     }
 
+    public function create($data,  $hora ,$fk_iddog)
+    {
+        $query = "INSERT INTO  tbagenda (data,  hora , fk_iddog) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$data,  $hora ,$fk_iddog]);
+        return $stmt;
+    }
+
     public function read()
     {
-        $query = "SELECT * FROM  tbprodu";
+        $query = "SELECT * FROM  tbpet";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         
@@ -27,7 +35,7 @@ class Produ {
 
     public function readEdit($id)
     {
-        $query = "SELECT * FROM tbprodu WHERE id = :id";
+        $query = "SELECT * FROM tbpet WHERE fk_don = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
