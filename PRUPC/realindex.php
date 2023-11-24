@@ -14,15 +14,16 @@ $agenda = new Agenda($conn);
 
 $data = $produ->read();
 
+$porta = 0;
+
 $pato = $pet->readEdit($_SESSION['id']);
 
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
-
+if(isset($_POST['form2'])){
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     $data = $_POST['data'];
     $hora = $_POST['hora'];
     $fk_iddog = $_POST['petss'];
@@ -30,8 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('refresh:1, realindex.php');
     exit();
 }
+}
 
-
+if(isset($_POST['form1'])){
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nome = $_POST['nome'];
@@ -41,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pet->create($nome, $raca, $fk_don, $idade);
     header('refresh:1, realindex.php');
     exit();
+}
 }
 
 ?>
@@ -209,12 +212,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="content-banhotosa">
         <div class="texto-banho">
 
-            <form method="post">
+            <form method="post" >
                 <input type="text" name="nome" id="nome" placeholder="Insira o nome o pet" required>
                 <input type="text" name="raca" id="raca" placeholder="Insira a raca do pet" required>
                 <input type="number" name="idade" id="idade" placeholder="Insira a idade do pet" required>
 
-                <input type="submit" value="Salvar" class="salvar">
+                <input type="submit" value="Salvar" name="form1" class="salvar">
             </form>
 
             <form method="post">
@@ -227,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo " <option value=" . $row['id'] . ">" . $row['nome'] . "</option>";
                     } ?>
 
-                    <input type="submit" value="Salvar" class="salvar">
+                    <input type="submit" value="Salvar" class="salvar" name="form2">
                 </select>
             </form>
 
