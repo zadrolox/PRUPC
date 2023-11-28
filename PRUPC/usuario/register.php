@@ -24,33 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <head>
     <link rel="stylesheet" href="register.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="registerMedia.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
 </head>
 
 <body>
-    <header class="nav">
-        <a href="#"><img src="img/logo.png" alt="" class="logo"></a>
+<header class="nav">
+        <a href="#"><img src="../img/Logo/logo2.png" alt="" class="logo"></a>
         <nav>
             <ul>
                 <li><a href="../index.php">Home</a></li>
-                <li><a href="#Produtos">Produtos</a></li>
-                <li><a href="#Banho&Tosa">Banho&Tosa</a></li>
+                <li><a href="../index.php#slider-container">Produtos</a></li>
+                <li><a href="../index.php#Banho&Tosa">Banho&Tosa</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="containerTabela">
-        <div class="img1">
-            <img src="../img/Login/fundoLoginPart1.jpg" alt="">
-            <div class="espaçoBranco">
-                <svg class="espaco" />
-                <svg class="espaco2" />
-            </div>
-            <img src="../img/Login/fundoLoginPart2.jpg" alt="">
-        </div>
         <div class="container">
             <h2 class="form__title">Faça seu cadastro abaixo</h2>
 

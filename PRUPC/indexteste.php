@@ -1,63 +1,21 @@
 <?php
-
 include_once './config/config.php';
 include_once './classes/produ.php';
-include_once './classes/Pet.php';
-include_once './classes/Agenda.php';
-session_start();
 
 $produ = new Produ($conn);
-
-$pet = new Pet($conn);
-
-$agenda = new Agenda($conn);
-
 $data = $produ->read();
 
-$pato = $pet->readEdit($_SESSION['id']);
-
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
-}
-
-
-if (isset($_POST['form2'])) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        $data = $_POST['data'];
-        $hora = $_POST['hora'];
-        $fk_iddog = $_POST['petss'];
-        $agenda->create($data, $hora, $fk_iddog);
-        header('refresh:1, realindex.php');
-        exit();
-    }
-}
-
-if (isset($_POST['form1'])) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        $nome = $_POST['nome'];
-        $raca = $_POST['raca'];
-        $fk_don = $_SESSION['id'];
-        $idade = $_POST['idade'];
-        $pet->create($nome, $raca, $fk_don, $idade);
-        header('refresh:1, realindex.php');
-        exit();
-    }
-}
 
 ?>
 
 
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" href="styleteste.css">
+<!--<link rel="stylesheet" href="media.css">-->
+<script src="script.js" defer></script>
 
 <head>
-    <link rel="stylesheet" href="styleReal.css">
-    <link rel="stylesheet" href="mediaReal.css">
-    <script src="script.js" defer></script>
     <title>Pelúcias & Ração </title>
     <style>
         #prev,
@@ -88,39 +46,43 @@ if (isset($_POST['form1'])) {
             background-color: rgba(0, 0, 0, 0.8);
         }
     </style>
+
+
+
+
+
 </head>
 
+
 <body>
-    <section class="principal" id="home">
-        <header class="nav">
-            <a href="#"><img src="./img/Logo/logo1.png" alt="" class="logo"></a>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#slider-container">Produtos</a></li>
-                    <li><a href="#Banho&Tosa">Banho&Tosa</a></li>
-                    <li><a class="btn" href="./usuario/logout.php">Logout</a></li>
-                </ul>
-            </nav>
-        </header>
-    </section>
+    <header class="nav">
+        <a href="#"><img src="./img/Logo/logo2.png" alt="" class="logo"></a>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#Produtos">Produtos</a></li>
+                <li><a href="#Banho&Tosa">Banho&Tosa</a></li>
+                <li><a class="btn" href="./usuario/login.php">Login</a></li>
+            </ul>
+        </nav>
+    </header>
     <!-- -------------------------------------PRINCIPAL---------------------------------------------------- -->
     <section class="fundoPrincipal">
         <div class="containerInfo">
             <h2>Pelúcia & Ração <br><span>PetShop</span></h2>
             <p>Olá! Somos Pelúcias & Ração. Nascemos da alegria e do prazer que é cuidar de cães e gatos!
-                Oferecemos ampla variedade de produtos para proporcionar melhor experiência à você e seu pet!</p>
+                Todos os pets que recebemos são tratados assim: como se fossem nossos próprios filhos.</p>
             <ul class="social">
                 <li><a href="https://www.facebook.com/"><img src="./img/Social/face.png" alt=""></a></li>
                 <li><a href="https://www.instagram.com/"><img src="./img/Social/insta.png" alt=""></a></li>
 
             </ul>
+
         </div>
         <div class="imagens">
             <div class="imagemCao">
                 <img src="./img/cao.jpg" alt="">
             </div>
-        </div>
 
     </section>
 
@@ -187,6 +149,8 @@ if (isset($_POST['form1'])) {
 
 
     <!-- -------------------------------------PRODUTOS ---------------------------------------------------- -->
+
+
     <div id="slider-container">
 
 
@@ -211,11 +175,10 @@ if (isset($_POST['form1'])) {
 
                         <p id="preco2">R$ <?php echo $row['preco']; ?></p>
 
-                        <a href="https://wa.me/555197614233?text=Tenho%20interesse%20em%20comprar%20<?php echo $row['nome'] ?>%20de%20id=%20<?php echo $row['id'] ?>">
-                            <button class="btn" style="padding: 25px 111px;margin-top: 10px;  max-height: 500px;">
-                                Comprar
-                            </button>
-                        </a>
+                        <a href="./usuario/login.php" style="color: rgb(48, 25, 107);">
+                            <button class="btnCompra" style="padding: 25px 111px;margin-top: 10px;  max-height: 500px;">
+                                <h4>Comprar</h4>
+                            </button></a>
 
                     </a>
                 </div>
@@ -263,41 +226,20 @@ if (isset($_POST['form1'])) {
     </script>
 
 
-
-
-
     <!-- ------------------------------------- BANHO E TOSA ---------------------------------------------------- -->
-    <div class="content-banhotosa" id="Banho&Tosa">
+    <section class="content-banhotosa">
         <div class="imgFundo">
-            <div class="content2">
-
-                <form method="post">
-                    <h1>Cadastro Pet</h1>
-                    <input type="text" name="nome" id="nome" placeholder="Insira o nome o pet" required>
-                    <input type="text" name="raca" id="raca" placeholder="Insira a raca do pet" required>
-                    <input type="number" name="idade" id="idade" placeholder="Insira a idade do pet" required>
-
-                    <input class="btn2" name="form1" type="submit" value="Cadastre seu Pet aqui!" class="salvar">
-                </form>
-
-                <form method="post">
-                    <h1>Faça seu agendamento de Banho e Tosa!</h1>
-                    <input type="date" name="data" id="data" placeholder="Insira a data ex:2023-11-02" required>
-                    <input type="time" name="hora" id="hora" placeholder="Insira a hora ex:10:35:00" required>
-                    <select id="petss" name="petss">
-                        <option>Selecione o pet</option>
-                        <?php
-                        while ($row = $pato->fetch(PDO::FETCH_ASSOC)) {
-                            echo " <option value=" . $row['id'] . ">" . $row['nome'] . "</option>";
-                        } ?>
-
-                        <input class="btn2" name="form2" type="submit" value="Agendar" class="salvar">
-                    </select>
-                </form>
-
+            <div class="contentBanho">
+                <h1>Faça seu login para acessar nossa agenda de Banho e Tosa para seu pet!</h1>
+                <a href="./usuario/login.php" type="submit">
+                    <button class="btn">
+                        Fazer Login
+                    </button>
+                </a>
             </div>
         </div>
-    </div>
+    </section>
+
     <!-- ----------------------------FOOTER --------------------------------------------------- -->
     <footer>
         <div class="contentFooter">
@@ -317,6 +259,7 @@ if (isset($_POST['form1'])) {
         </div>
 
     </footer>
+    <script src="script.js"></script>
 </body>
 
 </html>
