@@ -26,10 +26,19 @@ class Pet {
     }
     public function reads()
     {
-        $query = "SELECT * FROM  tbprodu";
+        $query = "SELECT id FROM  tbprodu";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         
+        return $stmt;
+    }
+
+    public function readEdits($id)
+    {
+        $query = "SELECT id FROM tbpet WHERE fk_don = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
         return $stmt;
     }
 

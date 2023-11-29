@@ -18,7 +18,7 @@ class Agenda {
 
     public function read()
     {
-        $query = "SELECT * FROM  tbpet";
+        $query = "SELECT * FROM  tbagenda";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         
@@ -26,7 +26,7 @@ class Agenda {
     }
     public function reads()
     {
-        $query = "SELECT * FROM  tbprodu";
+        $query = "SELECT * FROM  tbagenda";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         
@@ -35,10 +35,18 @@ class Agenda {
 
     public function readEdit($id)
     {
-        $query = "SELECT * FROM tbpet WHERE fk_don = :id";
+        $query = "SELECT * FROM tbagenda WHERE fk_iddog = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
+        return $stmt;
+    }
+
+    public function update($id, $data, $hora)
+    {
+        $query = "UPDATE tbagenda SET data = ?, hora = ?WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$data, $hora, $id]);
         return $stmt;
     }
 

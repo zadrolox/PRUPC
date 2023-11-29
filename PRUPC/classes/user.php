@@ -69,5 +69,13 @@ class User {
             echo "Erro no logout: " . $e->getMessage();
         }
     }
+
+    public function update($id, $username, $email, $password )
+    {
+        $query = "UPDATE tbuser SET username = ?, email = ?, password= ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$username, $email, $password, $id]);
+        return $stmt;
+    }
 }
 ?>

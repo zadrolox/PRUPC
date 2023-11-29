@@ -10,9 +10,9 @@ $produ = new Produ($conn);
 
 $pet = new Pet($conn);
 
-$agenda = new Agenda($conn);
-
 $data = $produ->read();
+
+$agenda = new Agenda($conn);
 
 $pato = $pet->readEdit($_SESSION['id']);
 
@@ -56,7 +56,7 @@ if (isset($_POST['form1'])) {
 
 <head>
     <link rel="stylesheet" href="styleReal.css">
-    <link rel="stylesheet" href="mediaReal.css">
+    <link rel="stylesheet" href="mediaReal1366.css">
     <script src="script.js" defer></script>
     <title>Pelúcias & Ração </title>
     <style>
@@ -195,31 +195,39 @@ if (isset($_POST['form1'])) {
         <div id="slider-wrapper">
             <?php
             $count = 0;
-            while ($row = $data->fetch(PDO::FETCH_ASSOC)) { ?>
-                <div class="slide">
+            while ($row = $data->fetch(PDO::FETCH_ASSOC)) {
+                if ($count < 5) { ?>
+                    <div class="slide">
 
 
-                    <h4 class="hot" style="font-weight: bolder;">Hot</h4>
+                        <h4 class="hot" style="font-weight: bolder;">Hot</h4>
 
-                    <a href="./usuario/login.php">
+                        <a href="./usuario/login.php">
 
-                        <img src="<?php echo $row['imagem']; ?>" alt="" />
+                            <img src="<?php echo $row['imagem']; ?>" alt="" />
 
-                        <h2 id="tituloProduto"> <?php echo $row['nome'];  ?></h2>
+                            <h2 id="tituloProduto">
+                                <?php echo $row['nome']; ?>
+                            </h2>
 
 
 
-                        <p id="preco2">R$ <?php echo $row['preco']; ?></p>
+                            <p id="preco2">R$
+                                <?php echo $row['preco']; ?>
+                            </p>
 
-                        <a href="https://wa.me/555197614233?text=Tenho%20interesse%20em%20comprar%20<?php echo $row['nome'] ?>%20de%20id=%20<?php echo $row['id'] ?>">
-                            <button class="btn" style="padding: 25px 111px;margin-top: 10px;  max-height: 500px;">
-                                Comprar
-                            </button>
+                            <a
+                                href="https://wa.me/555197614233?text=Tenho%20interesse%20em%20comprar%20<?php echo $row['nome'] ?>%20de%20id=%20<?php echo $row['id'] ?>">
+                                <button class="btn" style="padding: 25px 111px;margin-top: 10px;  max-height: 500px;">
+                                    Comprar
+                                </button>
+                            </a>
+
                         </a>
-
-                    </a>
-                </div>
-            <?php } ?>
+                    </div>
+                <?php }
+                $count++;
+            } ?>
 
             <!-- Add more slides as needed -->
         </div>
@@ -294,7 +302,17 @@ if (isset($_POST['form1'])) {
                         <input class="btn2" name="form2" type="submit" value="Agendar" class="salvar">
                     </select>
                 </form>
+                    
+                <h1>Selecione o pet que deseja alterar a agenda</h1>
+                <select name="asd" id="asd">
+                    <option>Selecione o Pet</option>
+                    <?php
+                        while ($row = $pato->fetch(PDO::FETCH_ASSOC)) {
+                            echo " <option value=" . $row['id'] . ">" . $row['nome'] . "</option>";
+                        } ?>
 
+                        
+                </select>
             </div>
         </div>
     </div>
