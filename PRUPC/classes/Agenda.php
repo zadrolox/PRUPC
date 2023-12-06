@@ -33,6 +33,8 @@ class Agenda {
         return $stmt;
     }
 
+    
+
     public function readEdit($id)
     {
         $query = "SELECT * FROM tbagenda WHERE fk_iddog = :id";
@@ -42,11 +44,11 @@ class Agenda {
         return $stmt;
     }
 
-    public function update($id, $data, $hora)
+    public function update($fk_iddog, $data, $hora)
     {
-        $query = "UPDATE tbagenda SET data = ?, hora = ?WHERE id = ?";
+        $query = "UPDATE tbagenda SET data = ?, hora = ?WHERE fk_iddog = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$data, $hora, $id]);
+        $stmt->execute([$data, $hora, $fk_iddog]);
         return $stmt;
     }
 

@@ -11,8 +11,8 @@ $data = $produ->read();
 
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="media1366.css">
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/media1366.css">
 <script src="script.js" defer></script>
 
 <head>

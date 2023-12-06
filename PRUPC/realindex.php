@@ -16,6 +16,15 @@ $agenda = new Agenda($conn);
 
 $pato = $pet->readEdit($_SESSION['id']);
 
+if (isset($_POST['form3'])) {
+    if ($pet->petin($id)) {
+        header("Location: ./agendaUpdate.php");
+        exit();
+    } else {
+        echo "Login falhou. Verifique suas credenciais.";
+    }
+}
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
@@ -55,8 +64,8 @@ if (isset($_POST['form1'])) {
 
 
 <head>
-    <link rel="stylesheet" href="styleReal.css">
-    <link rel="stylesheet" href="mediaReal1366.css">
+    <link rel="stylesheet" href="./css/styleReal.css">
+    <link rel="stylesheet" href="./css/mediaReal1366.css">
     <script src="script.js" defer></script>
     <title>Pelúcias & Ração </title>
     <style>
@@ -290,8 +299,8 @@ if (isset($_POST['form1'])) {
 
                 <form method="post">
                     <h1>Faça seu agendamento de Banho e Tosa!</h1>
-                    <input type="date" name="data" id="data" placeholder="Insira a data ex:2023-11-02" required>
-                    <input type="time" name="hora" id="hora" placeholder="Insira a hora ex:10:35:00" required>
+                    <input type="date" name="data" id="data" placeholder="Insira a data ex:2023-11-02" >
+                    <input type="time" name="hora" id="hora" placeholder="Insira a hora ex:10:35:00" >
                     <select id="petss" name="petss">
                         <option>Selecione o pet</option>
                         <?php
@@ -300,19 +309,9 @@ if (isset($_POST['form1'])) {
                         } ?>
 
                         <input class="btn2" name="form2" type="submit" value="Agendar" class="salvar">
+                        <input class="btn2" name="form3" type="submit" value="Alterar" class="salvar">
                     </select>
                 </form>
-                    
-                <h1>Selecione o pet que deseja alterar a agenda</h1>
-                <select name="asd" id="asd">
-                    <option>Selecione o Pet</option>
-                    <?php
-                        while ($row = $pato->fetch(PDO::FETCH_ASSOC)) {
-                            echo " <option value=" . $row['id'] . ">" . $row['nome'] . "</option>";
-                        } ?>
-
-                        
-                </select>
             </div>
         </div>
     </div>
